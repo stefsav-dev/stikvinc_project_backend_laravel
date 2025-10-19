@@ -8,13 +8,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Authenticate
 {
-    protected function redirectTo($request) {
-        if (!$request->expectsJson()) {
-            return response()->json(
-                [
-                    "message" => "Unauthorized",
-                    "status" => Response::HTTP_UNAUTHORIZED],
-            );
+    public function handle($request, Closure $next, ...$guards)
+    {
+        if (!$request->user()) {
+            return response()->json(["message" => "Unauthenticated"], 401);
         }
+
+        return $next($request);
     }
 }

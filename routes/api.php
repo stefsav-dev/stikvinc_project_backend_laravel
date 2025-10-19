@@ -10,8 +10,8 @@ Route::get("/", function () {
     return response()->json(['message' => 'Hello World!'], 200);
 });
 
-Route::get("/login", [\App\Http\Controllers\API\AuthController::class, "login"]);
-Route::get("/register", [\App\Http\Controllers\API\AuthController::class, "register"]);
+Route::post("/auth/login", [\App\Http\Controllers\API\AuthController::class, "login"]);
+Route::post("/auth/register", [\App\Http\Controllers\API\AuthController::class, "register"]);
 
 Route::prefix('admin')->middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
