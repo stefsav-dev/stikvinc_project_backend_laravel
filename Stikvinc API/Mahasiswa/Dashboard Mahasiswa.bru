@@ -1,0 +1,20 @@
+meta {
+  name: Dashboard Mahasiswa
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8000/api/mahasiswa/dashboard
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 13|eZip09WILtZt6Dweo5hvWrUn6grKrIdGw4GNFCTG56c6b7a0
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

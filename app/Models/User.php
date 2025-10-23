@@ -30,4 +30,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function scopeMahasiswa($query) {
+        return $query->where("role","mahasiswa");
+    }
 }

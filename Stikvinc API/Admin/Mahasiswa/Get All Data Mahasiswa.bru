@@ -1,0 +1,20 @@
+meta {
+  name: Get All Data Mahasiswa
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8000/api/admin/mahasiswa/get_all_data_mahasiswa
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 11|41JAEflAbbuYO6C7yJB9TuXguNOceWbYjnGEMBRq47ca9a82
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
