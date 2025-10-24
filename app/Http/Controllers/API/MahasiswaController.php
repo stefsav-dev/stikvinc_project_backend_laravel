@@ -12,4 +12,18 @@ class MahasiswaController extends Controller
             "messgae" => "Halaman Mahasiswa"
         ]);
     }
+
+
+    //Inventory Routes Mahasiswa
+    public function GetMyInventory() {
+        $inventory = auth()->user()
+        ->inventories()
+        ->latest()
+        ->paginate(10);
+
+        return response()->json([
+            'success' => true,
+            'data' => $inventory
+        ]);
+    }
 }

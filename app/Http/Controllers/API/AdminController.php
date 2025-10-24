@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Inventory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -191,4 +192,45 @@ class AdminController extends Controller
     }
 
     // end mahasiswa controller
+
+    // Inventory Controller Start
+
+    public function GetAllDataInventory() {
+        $inventory = Inventory::with('user:id,name,email')
+        ->latest()
+        ->paginate(10);
+
+        return response()->json([
+            'success' => true,
+            'data' => $inventory
+        ]);
+    }
+
+
+
+
+    public function AddDataInventory(Request $request) {
+        $validated = $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'jenis_barang' => 'required|string|max:255',
+            'quantity' => 'required|integer|min:8',
+            'image_barang' => 'nullable|image|max:2048',
+            'tanggal_pinjam' => 'required',
+            'tanggal_kembali' => 'required',
+            'keterangan' => 'nullable|string',
+        ]);
+
+        $validated['user_id'] = auth()->id();
+
+        if ($request->hasFile('image_barang')) {
+            $validated['image_barang'] = $request->file('image_barang')->store('inventory','public');
+        }
+        
+        Inventory::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Data inventory berhasil di tambahkan'
+        ]);
+    }
 } 
